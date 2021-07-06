@@ -18,10 +18,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jeferson
  */
-public class FrCadUsuario extends javax.swing.JFrame {
+public final class FrCadUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form FrCadUsuario
+     * @throws java.sql.SQLException
      */
     public FrCadUsuario() throws SQLException {
         initComponents();
@@ -34,7 +35,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
         modelo.setNumRows(0);
         UsuarioDao udao = new UsuarioDao();
-        for (Usuario p : udao.read()) {
+        udao.read().forEach((p) -> {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getNome(),
@@ -43,14 +44,14 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 p.getTelefone(),
                 p.getRecado(),
             });
-        }
+        });
     }
 
     public void showTableForName(String nome) throws SQLException {
         DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
         modelo.setNumRows(0);
         UsuarioDao udao = new UsuarioDao();
-        for (Usuario p : udao.readPesq(nome)) {
+        udao.readPesq(nome).forEach((p) -> {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getNome(),
@@ -59,7 +60,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 p.getTelefone(),
                 p.getRecado(),
             });
-        }
+        });
     }
 
     /**
@@ -73,6 +74,13 @@ public class FrCadUsuario extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -84,7 +92,6 @@ public class FrCadUsuario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbUsuarios = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -96,9 +103,11 @@ public class FrCadUsuario extends javax.swing.JFrame {
         btLimpar = new javax.swing.JButton();
         txtTelefone = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        TxtRecado = new javax.swing.JScrollPane();
         txtRecado = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,13 +122,34 @@ public class FrCadUsuario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jToggleButton1.setText("jToggleButton1");
+
+        jLabel6.setText("PESQUISAR");
+
+        jScrollPane3.setViewportView(jTextPane1);
+
+        jLabel8.setBackground(new java.awt.Color(102, 0, 102));
+        jLabel8.setForeground(new java.awt.Color(102, 0, 153));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/galaxia.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(153, 255, 102));
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("BrowalliaUPC", 3, 48)); // NOI18N
         jLabel1.setText("CADASTRO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -129,45 +159,49 @@ public class FrCadUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(25, 25, 25))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 120));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 70));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CÓDIGO");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         txtid.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 68, 20));
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 68, -1));
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("NOME");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
 
         txtNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 370, 20));
+        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 240, 30));
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("E-MAIL");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         txtEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 470, 20));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 190, 30));
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("TELEFONE");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
         tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "NOME", "E-MAIL", "SENHA", "telefone", "recado"
+                "ID", "NOME", "E-MAIL", "SENHA", "TELEFONE", "RECADO"
             }
         ));
         tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,24 +211,22 @@ public class FrCadUsuario extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbUsuarios);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 600, 230));
-
-        jLabel6.setText("PESQUISAR");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 470, 90));
 
         txtPesquisa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        getContentPane().add(txtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 280, 20));
+        getContentPane().add(txtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 280, 30));
 
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/lupa.png"))); // NOI18N
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/LUPA_1.png"))); // NOI18N
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);
             }
         });
-        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 500, 40, 20));
+        getContentPane().add(btPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 40, 30));
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("SENHA");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         btSalvar.setBackground(new java.awt.Color(51, 255, 51));
         btSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -205,7 +237,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 btSalvarActionPerformed(evt);
             }
         });
-        getContentPane().add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 100, 34));
+        getContentPane().add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, 30));
 
         btAlterar.setBackground(new java.awt.Color(255, 102, 0));
         btAlterar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -216,7 +248,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 btAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 100, 34));
+        getContentPane().add(btAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 100, 30));
 
         btExcluir.setBackground(new java.awt.Color(255, 0, 0));
         btExcluir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -227,8 +259,8 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 btExcluirActionPerformed(evt);
             }
         });
-        getContentPane().add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 100, 34));
-        getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 240, 20));
+        getContentPane().add(btExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 80, 30));
+        getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 110, 30));
 
         btNovo.setBackground(new java.awt.Color(0, 153, 255));
         btNovo.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,7 +270,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 btNovoActionPerformed(evt);
             }
         });
-        getContentPane().add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 70, 34));
+        getContentPane().add(btNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 70, 30));
 
         btLimpar.setBackground(new java.awt.Color(0, 0, 0));
         btLimpar.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,27 +280,30 @@ public class FrCadUsuario extends javax.swing.JFrame {
                 btLimparActionPerformed(evt);
             }
         });
-        getContentPane().add(btLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 100, 34));
+        getContentPane().add(btLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 100, 30));
 
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
             }
         });
-        getContentPane().add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 190, -1));
+        getContentPane().add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 190, 30));
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("RECADO");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, -1));
 
         txtRecado.setColumns(20);
         txtRecado.setRows(5);
-        jScrollPane3.setViewportView(txtRecado);
+        TxtRecado.setViewportView(txtRecado);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 396, 570, 80));
+        getContentPane().add(TxtRecado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 270, 70));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fundo3.jpg"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 600, 440));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/fundo3.jpg"))); // NOI18N
+        jLabel13.setText("jLabel13");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 500, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -286,7 +321,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
             showTable();
             controlarTela(1);
             limparCampos();
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro:" + e.getMessage());
         }
 
@@ -341,9 +376,7 @@ public class FrCadUsuario extends javax.swing.JFrame {
             udao.update(u);
             showTable();
             controlarTela(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(FrCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -381,42 +414,48 @@ public class FrCadUsuario extends javax.swing.JFrame {
             txtRecado.setText(null);
   }
     public void controlarTela(int op) {
-        if (op == 1) { //quando inicializado o formulario pela primeira vez
-            txtid.setEnabled(false);
-            txtNome.setEnabled(false);
-            txtEmail.setEnabled(false);
-            txtSenha.setEnabled(false);
-            txtTelefone.setEnabled(false);
-            txtRecado.setEnabled(false);
-            btSalvar.setEnabled(false);
-            btExcluir.setEnabled(false);
-            btAlterar.setEnabled(false);
-            btNovo.setEnabled(true);
-            
-        }else if(op==2){ //quando clicado o botão novo
-            txtid.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtSenha.setEnabled(true);
-             txtTelefone.setEnabled(true);
-            txtRecado.setEnabled(true);
-            btSalvar.setEnabled(true);
-            btExcluir.setEnabled(false);
-            btAlterar.setEnabled(false);
-            btNovo.setEnabled(false);
-            txtNome.requestFocus();
-            limparCampos();
-            
-        }else if(op==3){
-             txtNome.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtSenha.setEnabled(true);
-             txtTelefone.setEnabled(true);
-            txtRecado.setEnabled(true);
-            btSalvar.setEnabled(false);
-            btExcluir.setEnabled(true);
-            btAlterar.setEnabled(true);
-            btNovo.setEnabled(true);
+        switch (op) {
+            case 1:
+                //quando inicializado o formulario pela primeira vez
+                txtid.setEnabled(false);
+                txtNome.setEnabled(false);
+                txtEmail.setEnabled(false);
+                txtSenha.setEnabled(false);
+                txtTelefone.setEnabled(false);
+                txtRecado.setEnabled(false);
+                btSalvar.setEnabled(false);
+                btExcluir.setEnabled(false);
+                btAlterar.setEnabled(false);
+                btNovo.setEnabled(true);
+                break;
+            case 2:
+                //quando clicado o botão novo
+                txtid.setEnabled(false);
+                txtNome.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtSenha.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtRecado.setEnabled(true);
+                btSalvar.setEnabled(true);
+                btExcluir.setEnabled(false);
+                btAlterar.setEnabled(false);
+                btNovo.setEnabled(false);
+                txtNome.requestFocus();
+                limparCampos();
+                break;
+            case 3:
+                txtNome.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtSenha.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtRecado.setEnabled(true);
+                btSalvar.setEnabled(false);
+                btExcluir.setEnabled(true);
+                btAlterar.setEnabled(true);
+                btNovo.setEnabled(true);
+                break;
+            default:
+                break;
         }
 
     }
@@ -449,18 +488,17 @@ public class FrCadUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new FrCadUsuario().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FrCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new FrCadUsuario().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane TxtRecado;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btLimpar;
@@ -468,6 +506,9 @@ public class FrCadUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -476,11 +517,15 @@ public class FrCadUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTable tbUsuarios;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;

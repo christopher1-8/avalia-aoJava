@@ -66,5 +66,30 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", telefone=" + telefone +  ", recado=" + recado + '}';
     }
+   public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setRecado(String recado) {
+        this.recado = recado;
+    }
+    private static final Logger LOG = Logger.getLogger(Usuario.class.getName());
+
     
 }

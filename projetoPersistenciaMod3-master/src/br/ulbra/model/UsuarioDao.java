@@ -74,8 +74,8 @@ public class UsuarioDao {
         PreparedStatement stmt = null;
         BigInteger cripto;
         try {
-            stmt = con.prepareStatement("UPDATE tbusuario SET nome = ?,"
-                    + "email = ?, senha = ? ,telefone = ?,recado = ? , WHERE id = ?");
+            stmt = con.prepareStatement("UPDATE tbagenda SET nome = ?,"
+                    + "email = ?, senha = ? ,telefone = ?,recado = ?  WHERE id = ?");
             stmt.setString(1, u.getNome());
             stmt.setString(2, u.getEmail());
             cripto = u.criptografarSenha(u.getSenha());
